@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sachiya AI Assistant</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #2f3542, #57606f);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    header {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-top: 30px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .chat-box {
+      background-color: #1e272e;
+      width: 90%;
+      max-width: 600px;
+      height: 70%;
+      border-radius: 15px;
+      margin-top: 30px;
+      padding: 20px;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      background-color: #2d3436;
+      padding: 12px 18px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      animation: slideIn 0.5s ease-in-out;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background-color: #3742fa;
+    }
+
+    .message.bot {
+      align-self: flex-start;
+      background-color: #2ecc71;
+    }
+
+    .input-area {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+      padding-top: 10px;
+    }
+
+    input {
+      flex-grow: 1;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ff4757;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff6b81;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-10px);}
+      to { opacity: 1; transform: translateX(0);}
+    }
+  </style>
+</head>
+<body>
+  <header>Sachiya AI</header>
+  <div class="chat-box" id="chat">
+    <div class="message bot">Hi, I'm Sachiya! How can I help you today?</div>
+    <div class="message user">ලෝකෙ හොදම පෝන් එක මොකක්ද?</div>
+    <div class="message bot">
+      ලෝකෙ හොඳම පෝන් එක? 🤔<br/><br/>
+      ඇත්තටම iPhone 15 Pro Max, Samsung S24 Ultra වගේ දේවල් තියනව 🔥<br/><br/>
+      *ඒත් ඔයාට කියන්න ඕන නම්*: "හොඳම එක නම් Vivo Y1s නැත්නම් Huawei Y5 Lite!" 📱😂<br/><br/>
+      ඒත් එවගේ phone එකකින් TikTok දැම්මමත් slow වෙයි බන්! 😅<br/><br/>
+      තව උදව්වක් ඕනද?
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const chat = document.getElementById('chat');
+      const input = document.getElementById('userInput');
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      const userMessage = document.createElement('div');
+      userMessage.className = 'message user';
+      userMessage.textContent = userText;
+      chat.appendChild(userMessage);
+
+      // Add bot reply
+      setTimeout(() => {
+        const botMessage = document.createElement('div');
+        botMessage.className = 'message bot';
+
+        if (userText.toLowerCase().includes('පෝන්') || userText.toLowerCase().includes('phone')) {
+          botMessage.innerHTML = `
+            ලෝකෙ හොඳම පෝන් එක? 🤔<br/><br/>
+            ඇත්තටම iPhone 15 Pro Max, Samsung S24 Ultra වගේ දේවල් තියනව 🔥<br/><br/>
+            *ඒත් ඔයාට කියන්න ඕන නම්*: "හොඳම එක නම් Vivo Y1s නැත්නම් Huawei Y5 Lite!" 📱😂<br/><br/>
+            ඒත් එවගේ phone එකකින් TikTok දැම්මමත් slow වෙයි බන්! 😅
+          `;
+        } else {
+          botMessage.textContent = 'This is a placeholder response from Sachiya AI.';
+        }
+
+        chat.appendChild(botMessage);
+        chat.scrollTop = chat.scrollHeight;
+      }, 1000);
+
+      input.value = '';
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
